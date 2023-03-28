@@ -1,0 +1,134 @@
+package:
+  id: qtbase
+  kind: lib
+  version: 5.11.3.15
+  description: |
+    Qt is a cross-platform C++ application framework. Qt's primary feature
+    is its rich set of widgets that provide standard GUI functionality.
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/qtbase-opensource-src.git
+  version: 5.11.3.15
+  commit: 1f82fd47e27600b22853d382a8a528752e7702a6
+  patch:
+  - '# Backported from upstream.'
+  - mime_globs.diff
+  - fusion_checkable_qpushbutton.diff
+  - fix_recursion_crash.diff
+  - mysql_field_readonly.diff
+  - openssl3.diff
+  - CVE-2022-25255.diff
+  - add-forkfd_pidfd-feature-option.patch
+  - openssl_set_options.diff
+  - ''
+  - '# Debian specific.'
+  - gnukfreebsd.diff
+  - no_htmlinfo_example.diff
+  - remove_privacy_breaches.diff
+  - link_fbclient.diff
+  - gnukfreebsd_linker_warnings.diff
+  - armv4.diff
+  - nonlinux_utime.diff
+  - qdoc_default_incdirs.diff
+  - path_max.diff
+  - qstorageinfo_linux.diff
+  - cross_build_mysql.diff
+  - cast_types_for_egl_x11_test.diff
+  - revert_startBlocking_removal.diff
+  - ''
+  - '#uos'
+  - 0009-fix_qss_border_cap_style.patch
+  - fix_qrasterpaintengine_rect_for_hidpi.patch
+  - dnot_add_application_path_to_library_path_for_default.patch
+  - fix_action_distance_lineedit.patch
+  - add-sunway-support.patch
+  - QTBUG-85978-85985-QLineEdit-Fix-the-problem-under-the-touch-screen.patch
+  - QTBUG-85088-QGraphicsView-show-error-after-lose-focus.patch
+  - fix-combobox-cant-popup-on-mouse-release.patch
+  - remove-the-X11-True-and-False.patch
+  - feat-touch-screen-QListView-sliding-acceleration.patch
+  - fix-QDoubleSpinbox-and-QSpinbox-not-change-value-when-mouse-scroll.patch
+  - fix-_NET_SUPPORTED-attribute-cannot-be-updated.patch
+  - add-setting-thc-ICON-size-attribute-in-lineedit-to-the-style-plugin.patch
+  - QTBUG-92468-fix-qtextedit-cursor-drawn-incorrectly.patch
+  - QTBUG-92460-don-use-large-icons-in-qlineedit.patch
+  - QTBUG-92366-Check-scrollbar-visibility-when-computing-QListView-Margins.patch
+  - QTBUG-92583-fix-pagedown-behavior-and-pageup.patch
+  - QTBUG-94248-Check-scrollbar-ScrollBarOverlap-when-computing-QListView-margins.patch
+  - fix-QLineEdit-cursor-jumping-on-touch-screen.patch
+  - QTBUG-95011-do-not-change-layout-direction-on-keyboard-input.patch
+  - QTBUG-95607-Close-all-popup-windows-when-the-screen-is-rotated.patch
+  - QTBUG-95341-Account-for-the-placeholderText-when-computing-lineRect.patch
+  - QTBUG-95942-Fix-text-ellipsis-not-implemented-in-Tibetan.patch
+  - QTBUG-96288-Fix-QTextEdit-cursor-rectangle-vertical-positioning.patch
+  - QTBUG-96124-QAbstractItemView-auto-scroll-with-selection-rectangle.patch
+  - QTBUG-98961-Fix-item-view-auto-scrolling-during-dragdrop.patch
+  - QTBUG-99163-Use-qint64-to-replace-int-while-qt_transform_image_rasterize.patch
+  - QTBUG-98247-Test-result-of-qobject_cast-before-dereferencing.patch
+  - QTBUG-99512-Always-update-pressedPosition-when-drag-was-enabled.patch
+  - auto-select-opengl-or-opengles.patch
+  - QTBUG-81696-QHighDpi-revert-window-on-multiple-screens-handling.patch
+  - QTBUG-104050-QMenu-adjust-the-position-of-submenu.patch
+  - QTBUG-102628-Application-will-crash-if-setWindowsIcon-with-a-big-ICON.patch
+  - Avoid_adding_null-objects_to_the_icon_cache.patch
+  - QListView-pageDownUp-infinte-loop.patch
+  - QTBUG-92468-reconsider-cursor-drawing-textObject.patch
+  - QTBUG-108092-add-filter-hook.patch
+  - QTBUG-101347-revert-xcb-implement-missing-bits-form-icccm414-WM_STATE-handling.patch
+build:
+  kind: manual
+  manual:
+    configure: |
+      # exec bash
+      ./configure -prefix ${PREFIX} \
+        -libdir ${PREFIX}/lib/${TRIPLET} \
+        -plugindir ${PREFIX}/lib/${TRIPLET}/qt5/plugins \
+        -qmldir ${PREFIX}/lib/${TRIPLET}/qt5/qml \
+        -headerdir ${PREFIX}/include/${TRIPLET}/qt5 \
+        -datadir ${PREFIX}/share/qt5 \
+        -translationdir ${PREFIX}/share/qt5/translations \
+        -archdatadir ${PREFIX}/lib/${TRIPLET}/qt5 \
+        -sysconfdir ${PREFIX}/etc/xdg \
+        -docdir ${PREFIX}/share/qt5/doc \
+        -importdir ${PREFIX}/lib/${TRIPLET}/qt5/imports \
+        -hostdatadir ${PREFIX}/lib/${TRIPLET}/qt5 \
+        -confirm-license \
+        -opensource \
+        -plugin-sql-mysql \
+        -plugin-sql-odbc \
+        -plugin-sql-psql \
+        -plugin-sql-sqlite \
+        -no-sql-sqlite2 \
+        -plugin-sql-tds \
+        -system-sqlite \
+        -platform linux-g++ \
+        -system-harfbuzz \
+        -system-zlib \
+        -system-libpng \
+        -system-libjpeg \
+        -system-doubleconversion \
+        -system-pcre \
+        -openssl \
+        -no-rpath \
+        -verbose \
+        -optimized-qmake \
+        -dbus-linked \
+        -no-strip \
+        -no-separate-debug-info \
+        -qpa xcb \
+        -xcb \
+        -glib \
+        -icu \
+        -accessibility \
+        -nomake examples \
+        -no-directfb \
+        -no-use-gold-linker \
+        -opengl desktop
+        # exec bash
+        make ${jobs}
+        make -j1 install
