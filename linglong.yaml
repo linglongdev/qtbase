@@ -16,7 +16,6 @@ source:
   version: 5.11.3.15
   commit: 1f82fd47e27600b22853d382a8a528752e7702a6
   patch:
-  - '# Backported from upstream.'
   - mime_globs.diff
   - fusion_checkable_qpushbutton.diff
   - fix_recursion_crash.diff
@@ -25,8 +24,6 @@ source:
   - CVE-2022-25255.diff
   - add-forkfd_pidfd-feature-option.patch
   - openssl_set_options.diff
-  - ''
-  - '# Debian specific.'
   - gnukfreebsd.diff
   - no_htmlinfo_example.diff
   - remove_privacy_breaches.diff
@@ -40,8 +37,6 @@ source:
   - cross_build_mysql.diff
   - cast_types_for_egl_x11_test.diff
   - revert_startBlocking_removal.diff
-  - ''
-  - '#uos'
   - 0009-fix_qss_border_cap_style.patch
   - fix_qrasterpaintengine_rect_for_hidpi.patch
   - dnot_add_application_path_to_library_path_for_default.patch
